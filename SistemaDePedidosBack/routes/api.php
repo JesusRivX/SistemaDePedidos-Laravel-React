@@ -13,15 +13,11 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::post('logout', [AuthController::class, 'logout']);
 
-    //Almacenar pedidos
     Route::apiResource('pedidos', PedidoController::class);
 
     Route::apiResource('categorias', CategoriaController::class);
     Route::apiResource('productos', ProductoController::class);
 });
-
-// Route::get('/categorias', [CategoriaController::class, 'index']);
-
 
 Route::post('registro', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);

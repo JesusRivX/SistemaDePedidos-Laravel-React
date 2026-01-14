@@ -27,14 +27,12 @@ const Registro = () => {
   return (
     <>
       <h1 className="text-4xl font-black">Crea tu cuenta</h1>
-      <p>Crea tu cuenta llenando el formulario</p>
 
       <div className="bg-white shadow rounded-md mt-10 px-5 py-10">
         <form onSubmit={handleSubmit} noValidate>
-          {errores
+          {/* {errores
             ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>)
-            : null}
-
+            : null} */}
           <div className="mb-4">
             <label htmlFor="name">Nombre: </label>
             <input
@@ -86,7 +84,7 @@ const Registro = () => {
           <input
             type="submit"
             value="Crear Cuenta"
-            className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
+            className="bg-[#bf4438] w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-[#8c2a1a] transition-colors"
           />
         </form>
       </div>
@@ -97,7 +95,7 @@ const Registro = () => {
           className="text-center my-5 text-slate-500 uppercase text-sm"
         >
           ¿Ya tienes una cuenta?{" "}
-          <span className="text-sky-700 font-bold">Inicia Sesión</span>
+          <span className="text-[#bf4438] font-bold">Inicia Sesión</span>
         </Link>
       </nav>
     </>

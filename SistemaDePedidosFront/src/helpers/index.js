@@ -1,6 +1,6 @@
 export const formatearDinero = (cantidad) => {
-  return cantidad.toLocaleString("es-US", {
+  return cantidad.toLocaleString("es-PE", {
     style: "currency",
-    currency: "USD",
+    currency: "PEN",
   });
 };

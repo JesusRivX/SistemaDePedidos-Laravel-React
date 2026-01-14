@@ -31,7 +31,7 @@ const Inicio = () => {
         Elige y personaliza tu pedido a continuación.
       </p>
 
-      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid gap-4 grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {productos.map((producto) => (
           <Producto
             key={producto.imagen}

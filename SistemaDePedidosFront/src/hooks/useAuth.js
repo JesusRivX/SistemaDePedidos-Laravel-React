@@ -2,6 +2,7 @@ import useSWR from "swr";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import clienteAxios from "../config/axios";
+import { toast } from "react-toastify";
 
 const useAuth = ({ middleware, url }) => {
   const token = localStorage.getItem("AUTH_TOKEN");
@@ -25,8 +26,16 @@ const useAuth = ({ middleware, url }) => {
       localStorage.setItem("AUTH_TOKEN", data.token);
       await mutate(); // Actualiza el estado del usuario después del login
       setErrores([]);
+      toast.success("Iniciando sesión ...");
     } catch (error) {
-      setErrores(Object.values(error.response.data.errors));
+      const errores = error.response?.data?.errors;
+      if (errores) {
+        const mensajes = Object.values(errores).flat();
+        setErrores(mensajes);
+        mensajes.forEach((mensaje) => {
+          toast.error(mensaje);
+        });
+      }
     }
   };
 
@@ -36,8 +45,16 @@ const useAuth = ({ middleware, url }) => {
       localStorage.setItem("AUTH_TOKEN", data.token);
       await mutate(); // Actualiza el estado del usuario después del registro
       setErrores([]);
+      toast.success("Usuario registrado correctamente");
     } catch (error) {
-      setErrores(Object.values(error.response.data.errors));
+      const errores = error.response?.data?.errors;
+      if (errores) {
+        const mensajes = Object.values(errores).flat();
+        setErrores(mensajes);
+        mensajes.forEach((mensaje) => {
+          toast.error(mensaje);
+        });
+      }
     }
   };
 

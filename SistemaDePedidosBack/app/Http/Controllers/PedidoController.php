@@ -17,7 +17,7 @@ class PedidoController extends Controller
     public function index()
     {
         //
-        return new PedidoCollection(Pedido::with('user')->with('productos')->where('estado', '0')->get());
+        return new PedidoCollection(Pedido::with(['user', 'productos'])->where('estado', '0')->get());
     }
 
     /**
@@ -26,33 +26,21 @@ class PedidoController extends Controller
     public function store(Request $request)
     {
         //Almacenar pedidos realizados por los usuarios
-        $pedido = new Pedido();
-        $pedido->user_id = Auth::user()->id;
-        $pedido->total = $request->total;
+        $pedido = Pedido::create([
+            'total' => $request->total,
+            'user_id' => Auth::id(),
+        ]);
 
-        //Guardar el pedido
-        $pedido->save();
-
-        //Obtener el ID del pedido
-        $id = $pedido->id;
-
-        //Obtener los productos del pedido
-        $productos = $request->productos;
-
-        //Formatear un arreglo
-        $pedido_producto = [];
-
-        foreach ($productos as $producto) {
-            $pedido_producto[] = [
-                'pedido_id' => $id,
+        $pedido_producto = collect($request->productos)->map(function ($producto) use ($pedido) {
+            return [
+                'pedido_id' => $pedido->id,
                 'producto_id' => $producto['id'],
                 'cantidad' => $producto['cantidad'],
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
-        }
+        })->toArray();
 
-        //Almacenar en la base de datos
         PedidoProducto::insert($pedido_producto);
 
         return [

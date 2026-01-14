@@ -12,6 +12,8 @@ const QuioscoProvider = ({ children }) => {
   const [pedido, setPedido] = useState([]);
   const [total, setTotal] = useState(0);
 
+  console.log(pedido);
+
   useEffect(() => {
     const nuevoTotal = pedido.reduce(
       (total, producto) => total + producto.cantidad * producto.precio,
@@ -135,7 +137,7 @@ const QuioscoProvider = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.error(data.message);
+      toast.success(data.message);
     } catch (error) {
       console.log(error);
     }

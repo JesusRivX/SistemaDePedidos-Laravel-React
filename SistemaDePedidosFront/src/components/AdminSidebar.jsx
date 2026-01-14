@@ -4,24 +4,42 @@ import useAuth from "../hooks/useAuth";
 const AdminSidebar = () => {
   const { logout } = useAuth({ middleware: "auth" });
   return (
-    <aside className="md:w-72 h-screen">
-      <div className="p-4">
-        <img src="/img/logo.svg" alt="imagen logotipo" className="w-40" />
+    <aside className="md:w-72 min-h-dvh flex flex-col bg-white">
+      <div className="p-6">
+        <img
+          src="/img/logoProyecto.png"
+          alt="imagen logotipo"
+          className="w-40 mx-auto rounded-lg"
+        />
       </div>
 
-      <nav className="flex flex-col p-4">
-        <Link to="/admin" className="font-bold text-lg">
-          Ordenes
+      <nav className="flex-1 flex flex-col justify-center gap-4 px-6">
+        <Link
+          to="/admin"
+          className="block text-center py-4 rounded-lg font-bold text-lg text-slate-700 bg-[#e9e5e2] hover:bg-[#bf4438] hover:text-white transition"
+        >
+          Órdenes
         </Link>
-        <Link to="/admin/productos" className="font-bold text-lg">
+
+        <Link
+          to="/admin/productos"
+          className="block text-center py-4 rounded-lg font-bold text-lg text-slate-700 bg-[#e9e5e2] hover:bg-[#bf4438] hover:text-white transition"
+        >
           Productos
         </Link>
       </nav>
 
-      <div className="my-5 px-5">
+      <div className="p-5">
         <button
           type="button"
-          className="text-center bg-red-500 w-full p-3 font-bold text-white truncate"
+          className="w-full py-3 rounded-lg font-bold text-white transition"
+          style={{ backgroundColor: "#bf4438" }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "#a63a30")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = "#bf4438")
+          }
           onClick={logout}
         >
           Cerrar Sesión

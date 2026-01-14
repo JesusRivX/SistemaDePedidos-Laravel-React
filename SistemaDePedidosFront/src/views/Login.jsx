@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createRef } from "react";
 import Alerta from "../components/Alerta";
 import useAuth from "../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const emailRef = createRef();
@@ -27,13 +28,12 @@ const Login = () => {
   return (
     <>
       <h1 className="text-4xl font-black">Iniciar Sesión</h1>
-      <p>Para crear un pedido, inicia sesión con tu cuenta</p>
 
       <div className="bg-white shadow rounded-md mt-10 px-5 py-10">
         <form onSubmit={handleSubmit} noValidate>
-          {errores
+          {/* {errores
             ? errores.map((error, i) => <Alerta key={i}>{error}</Alerta>)
-            : null}
+            : null} */}
           <div className="mb-4">
             <label htmlFor="email">Email: </label>
             <input
@@ -61,7 +61,7 @@ const Login = () => {
           <input
             type="submit"
             value="Iniciar Sesión"
-            className="bg-sky-700 w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-sky-800 transition-colors"
+            className="bg-[#bf4438] w-full py-3 text-white uppercase font-bold rounded hover:cursor-pointer hover:bg-[#8c2a1a] transition-colors"
           />
         </form>
       </div>
@@ -72,7 +72,7 @@ const Login = () => {
           className="text-center my-5 text-slate-500 uppercase text-sm"
         >
           ¿No tienes una cuenta?{" "}
-          <span className="text-sky-700 font-bold">Regístrate</span>
+          <span className="text-[#bf4438] font-bold">Regístrate</span>
         </Link>
       </nav>
     </>

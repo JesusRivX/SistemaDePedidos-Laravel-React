@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 const Resumen = () => {
   const { pedido, total, handleSubmitNuevaOrden } = useQuiosco();
   const { logout } = useAuth({});
+
   const comprobarPedido = () => pedido.length === 0;
 
   const handleSubmit = (e) => {
@@ -14,16 +15,20 @@ const Resumen = () => {
   };
 
   return (
-    <aside className="w-72 h-screen overflow-y-scroll p-5">
-      <h1 className="text-4xl font-black">Mi Pedido</h1>
-      <p className="text-lg my-5">
-        Aquí podrás ver el resumen y totales de tu pedido
-      </p>
+    <aside className="md:w-102 h-screen bg-gray-50 border-l p-5 flex flex-col">
+      {/* Header */}
+      <div>
+        <h1 className="text-3xl font-black text-gray-800">Mi Pedido</h1>
+        <p className="text-sm text-gray-600 mt-2">
+          Revisa los productos antes de confirmar
+        </p>
+      </div>
 
-      <div className="py-10">
+      {/* Lista */}
+      <div className="flex-1 overflow-y-auto mt-6">
         {pedido.length === 0 ? (
-          <p className="text-center text-2xl">
-            No hay elementos en tu pedido aún
+          <p className="text-center text-gray-500 mt-10">
+            No hay productos en tu pedido
           </p>
         ) : (
           pedido.map((producto) => (
@@ -32,27 +37,31 @@ const Resumen = () => {
         )}
       </div>
 
-      <p className="text-xl mt-10">
-        Total: {""}
-        {formatearDinero(total)}
-      </p>
+      {/* Total */}
+      <div className="border-t pt-4 mt-4">
+        <p className="text-lg text-gray-700 flex justify-between">
+          <span>Total:</span>
+          <span className="font-black text-gray-900">
+            {formatearDinero(total)}
+          </span>
+        </p>
 
-      <form className="w-full" onSubmit={handleSubmit}>
-        <div className="mt-5">
+        <form onSubmit={handleSubmit} className="mt-4">
           <input
             type="submit"
-            className={`${
-              comprobarPedido()
-                ? "bg-indigo-100"
-                : "bg-indigo-600 hover:bg-indigo-800"
-            } 
-                              px-5 py-2 rounded uppercase font-bold text-white text-center w-full cursor-pointer`}
             value="Confirmar Pedido"
             disabled={comprobarPedido()}
+            className={`w-full py-3 rounded-lg font-bold uppercase text-white transition-all
+              ${
+                comprobarPedido()
+                  ? "bg-[#e9e5e2] cursor-not-allowed"
+                  : "bg-[#bf4438] shadow-lg hover:bg-[#8c2a1a] hover:shadow-none cursor-pointer"
+              }`}
           />
-        </div>
-      </form>
+        </form>
+      </div>
     </aside>
   );
 };
+
 export default Resumen;

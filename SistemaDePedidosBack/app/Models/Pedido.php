@@ -10,6 +10,12 @@ class Pedido extends Model
     //
     use HasFactory;
 
+    protected $fillable = [
+        'total',
+        'user_id',
+        'estado',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);

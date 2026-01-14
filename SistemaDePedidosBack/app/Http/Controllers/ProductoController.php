@@ -11,8 +11,13 @@ class ProductoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->boolean('all')) {
+            $productos = Producto::orderBy('id', 'ASC')->paginate(6);
+            return new ProductoCollection($productos);
+        }
+
         return new ProductoCollection(Producto::where('disponible', 1)->orderby('id', 'ASC')->get());
     }
 
@@ -38,11 +43,11 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $producto)
     {
         //
-        $producto->disponible = 0;
+        $producto->disponible = !$producto->disponible;
         $producto->save();
 
         return [
-            'message' => 'Producto no disponible',
+            'message' => 'Disponibilidad actualizada correctamente',
             'producto' => $producto,
         ];
     }

@@ -8,24 +8,40 @@ const Producto = ({
 }) => {
   const { handleClickModal, handleSetProducto, handleClickProductoAgotado } =
     useQuiosco();
+
   const { nombre, imagen, precio, id } = producto;
+
   return (
-    <div className="border p-3 shadow bg-white">
-      <img
-        alt={`imagen ${nombre}`}
-        className="w-full"
-        src={`/img/${imagen}.jpg`}
-      />
-      <div className="p-5">
-        <h3 className="text-2xl font-bold">{nombre}</h3>
-        <p className="mt-5 font-black text-4xl text-amber-500">
+    <div className="bg-white rounded-xl shadow hover:shadow-xl transition overflow-hidden">
+      <div className="relative">
+        <img
+          src={`/img/${imagen}.jpg`}
+          alt={`imagen ${nombre}`}
+          className="w-full h-80 object-cover rounded-t-xl"
+        />
+
+        <span
+          className="absolute top-3 right-3 text-white font-bold px-3 py-1 rounded-full"
+          style={{ backgroundColor: "#000" }}
+        >
           {formatearDinero(precio)}
-        </p>
+        </span>
+      </div>
+
+      <div className="p-5 flex flex-col gap-4">
+        <h3 className="text-xl font-bold">{nombre}</h3>
 
         {botonAgregar && (
           <button
             type="button"
-            className="bg-gray-600 hover:bg-gray-800 text-white w-full mt-5 p-3 uppercase font-bold"
+            className="w-full py-3 rounded-lg font-bold uppercase text-white transition"
+            style={{ backgroundColor: "#bf4438" }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "#a63a30")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "#bf4438")
+            }
             onClick={() => {
               handleClickModal();
               handleSetProducto(producto);
@@ -38,7 +54,14 @@ const Producto = ({
         {botonDisponible && (
           <button
             type="button"
-            className="bg-gray-600 hover:bg-gray-800 text-white w-full mt-5 p-3 uppercase font-bold"
+            className="w-full py-3 rounded-lg font-bold uppercase text-white transition"
+            style={{ backgroundColor: "#bf4438" }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "#a63a30")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "#bf4438")
+            }
             onClick={() => handleClickProductoAgotado(id)}
           >
             Producto Agotado
@@ -48,4 +71,5 @@ const Producto = ({
     </div>
   );
 };
+
 export default Producto;
